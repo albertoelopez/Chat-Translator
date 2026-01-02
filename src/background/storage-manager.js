@@ -52,7 +52,10 @@ class StorageManager {
       }
 
       const result = await chrome.storage.local.get(STORAGE_KEYS.SETTINGS);
-      const settings = result[STORAGE_KEYS.SETTINGS] || DEFAULT_SETTINGS;
+      const storedSettings = result[STORAGE_KEYS.SETTINGS] || {};
+
+      // Always merge with defaults to ensure all properties exist
+      const settings = { ...DEFAULT_SETTINGS, ...storedSettings };
 
       this.cache.set(STORAGE_KEYS.SETTINGS, settings);
       return settings;
