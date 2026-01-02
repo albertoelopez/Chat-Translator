@@ -12,24 +12,39 @@ let isResizing = false;
 let dragOffset = { x: 0, y: 0 };
 let translations = [];
 
-// Elements
-const messageInput = document.getElementById('message-input');
-const sendBtn = document.getElementById('send-btn');
-const charCurrent = document.getElementById('char-current');
-const charMax = document.getElementById('char-max');
-const nativeLangEl = document.getElementById('native-lang');
-const chatLangEl = document.getElementById('chat-lang');
-const statusEl = document.getElementById('status');
-const translationsList = document.getElementById('translations-list');
-const translationsEl = document.getElementById('translations');
-const header = document.getElementById('header');
-const minimizeBtn = document.getElementById('minimize-btn');
-const closeBtn = document.getElementById('close-btn');
-const resizeHandle = document.getElementById('resize-handle');
+// Elements - will be initialized after DOM loads
+let messageInput;
+let sendBtn;
+let charCurrent;
+let charMax;
+let nativeLangEl;
+let chatLangEl;
+let statusEl;
+let translationsList;
+let translationsEl;
+let header;
+let minimizeBtn;
+let closeBtn;
+let resizeHandle;
 
 // Initialize
 function initialize() {
   console.log('[Overlay] Initializing...');
+
+  // Get DOM elements
+  messageInput = document.getElementById('message-input');
+  sendBtn = document.getElementById('send-btn');
+  charCurrent = document.getElementById('char-current');
+  charMax = document.getElementById('char-max');
+  nativeLangEl = document.getElementById('native-lang');
+  chatLangEl = document.getElementById('chat-lang');
+  statusEl = document.getElementById('status');
+  translationsList = document.getElementById('translations-list');
+  translationsEl = document.getElementById('translations');
+  header = document.getElementById('header');
+  minimizeBtn = document.getElementById('minimize-btn');
+  closeBtn = document.getElementById('close-btn');
+  resizeHandle = document.getElementById('resize-handle');
 
   setupEventListeners();
   setupDragFunctionality();
