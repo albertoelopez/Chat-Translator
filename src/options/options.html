@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Respond in Language - Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 32px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .primary-btn {
+      background: #667eea;
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background: #5568d3;
+    }
+
+    .secondary-btn {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .secondary-btn:hover {
+      background: #d0d0d0;
+    }
+
+    #status {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #status.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    #status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .quota-display {
+      background: #f9fafb;
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .quota-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .quota-fill {
+      height: 100%;
+      background: #667eea;
+      transition: width 0.3s;
+    }
+
+    .quota-fill.warning {
+      background: #f59e0b;
+    }
+
+    .quota-fill.critical {
+      background: #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Respond in Language</h1>
+    <p class="subtitle">Configure your translation settings</p>
+
+    <div id="status"></div>
+
+    <!-- API Configuration -->
+    <div class="section">
+      <div class="section-title">🔑 API Configuration</div>
+
+      <div class="field">
+        <label for="api-key">Google Translate API Key *</label>
+        <input type="password" id="api-key" placeholder="AIza...">
+        <div class="help-text">
+          Get your API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a>
+        </div>
+      </div>
+
+      <div id="quota" class="quota-display" style="display: none;">
+        <div>Daily Quota Usage</div>
+        <div class="quota-bar">
+          <div id="quota-fill" class="quota-fill" style="width: 0%"></div>
+        </div>
+        <div id="quota-text" class="help-text">0 / 500,000 characters (0%)</div>
+      </div>
+    </div>
+
+    <!-- Language Settings -->
+    <div class="section">
+      <div class="section-title">🌍 Language Settings</div>
+
+      <div class="field">
+        <label for="native-language">Your Native Language *</label>
+        <select id="native-language">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="zh-CN">Chinese (Simplified)</option>
+          <option value="hi">Hindi</option>
+          <option value="ar">Arabic</option>
+        </select>
+        <div class="help-text">The language you type in</div>
+      </div>
+
+      <div class="field">
+        <label for="default-chat-language">Default Chat Language</label>
+        <select id="default-chat-language">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="zh-CN">Chinese (Simplified)</option>
+          <option value="hi">Hindi</option>
+          <option value="ar">Arabic</option>
+        </select>
+        <div class="help-text">Fallback if auto-detection fails</div>
+      </div>
+
+      <div class="field checkbox-field">
+        <input type="checkbox" id="auto-detect" checked>
+        <label for="auto-detect">Auto-detect chat language</label>
+      </div>
+    </div>
+
+    <!-- Display Settings -->
+    <div class="section">
+      <div class="section-title">🎨 Display Settings</div>
+
+      <div class="field checkbox-field">
+        <input type="checkbox" id="show-original" checked>
+        <label for="show-original">Show original text with translations</label>
+      </div>
+
+      <div class="field">
+        <label for="theme">Theme</label>
+        <select id="theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button id="save-btn" class="primary-btn">Save Settings</button>
+      <button id="test-btn" class="secondary-btn">Test API Key</button>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Respond in Language</title>
+  <link rel="stylesheet" href="overlay.css">
+</head>
+<body>
+  <div id="overlay-container">
+    <!-- Header with drag handle -->
+    <div id="header" class="drag-handle">
+      <div id="title">
+        <span class="icon">🌐</span>
+        <span id="language-indicator">
+          <span id="native-lang">EN</span> → <span id="chat-lang">ES</span>
+        </span>
+      </div>
+      <div id="controls">
+        <button id="minimize-btn" class="control-btn" title="Minimize (Alt+T)" aria-label="Minimize">−</button>
+        <button id="close-btn" class="control-btn" title="Close" aria-label="Close">×</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="content">
+      <!-- Input area -->
+      <div id="input-container">
+        <textarea
+          id="message-input"
+          placeholder="Type in your native language..."
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div id="actions">
+        <div id="char-count">
+          <span id="char-current">0</span>/<span id="char-max">5000</span>
+        </div>
+        <button id="send-btn" class="primary-btn" disabled>
+          Send
+          <span class="shortcut">Ctrl+Enter</span>
+        </button>
+      </div>
+
+      <!-- Status message -->
+      <div id="status" class="hidden"></div>
+
+      <!-- Recent translations (incoming) -->
+      <div id="translations" class="hidden">
+        <div id="translations-header">
+          <span>Recent Translations</span>
+          <button id="toggle-translations" aria-label="Toggle translations">▼</button>
+        </div>
+        <div id="translations-list"></div>
+      </div>
+    </div>
+
+    <!-- Resize handle -->
+    <div id="resize-handle" title="Drag to resize"></div>
+  </div>
+
+  <script src="overlay.js" type="module"></script>
+</body>
+</html>
