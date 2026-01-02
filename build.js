@@ -42,23 +42,13 @@ function copyDir(src, dest) {
 
 copyDir(srcDir, buildDir);
 
-// Create placeholder icons
-const iconsDir = path.join(buildDir, 'assets', 'icons');
-fs.mkdirSync(iconsDir, { recursive: true });
-
-// Create simple SVG icons (for now)
-const svgIcon = `<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
-  <rect width="128" height="128" fill="#667eea" rx="24"/>
-  <text x="64" y="80" font-size="64" text-anchor="middle" fill="white">🌐</text>
-</svg>`;
-
-// For a real extension, you'd use proper PNG icons
-// For now, create a note file
-fs.writeFileSync(
-  path.join(iconsDir, 'README.txt'),
-  'Add icon16.png, icon32.png, icon48.png, and icon128.png here\n' +
-  'You can create them at https://icon.kitchen or use any image editor'
-);
+// Copy assets directory (icons)
+const assetsDir = path.join(__dirname, 'assets');
+if (fs.existsSync(assetsDir)) {
+  const buildAssetsDir = path.join(buildDir, 'assets');
+  copyDir(assetsDir, buildAssetsDir);
+  console.log('✅ Assets copied');
+}
 
 console.log('✅ Build completed successfully!');
 console.log('📁 Output directory:', buildDir);
