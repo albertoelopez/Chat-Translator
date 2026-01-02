@@ -55,18 +55,26 @@ export function validateAPIKey(apiKey) {
   return pattern.test(apiKey);
 }
 
-// Sanitize text input
+// Sanitize text input (service worker compatible - no DOM access)
 export function sanitizeText(text, maxLength = 5000) {
   if (!text || typeof text !== 'string') {
     return '';
   }
 
-  // Create a div to decode HTML entities and remove tags
-  const div = document.createElement('div');
-  div.textContent = text;
+  // Remove HTML tags using regex
+  let sanitized = text.replace(/<[^>]*>/g, '');
+
+  // Decode common HTML entities
+  sanitized = sanitized
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
 
   // Trim and limit length
-  return div.textContent.trim().substring(0, maxLength);
+  return sanitized.trim().substring(0, maxLength);
 }
 
 // Debounce function
