@@ -139,6 +139,10 @@ class ContentScript {
       return;
     }
 
+    // Ensure overlay position and size have defaults
+    const overlayPosition = this.settings.overlayPosition || { x: 100, y: 100 };
+    const overlaySize = this.settings.overlaySize || { width: 400, height: 300 };
+
     // Create iframe
     const iframe = document.createElement('iframe');
     iframe.id = 'respond-in-language-overlay';
@@ -147,10 +151,10 @@ class ContentScript {
     // Style iframe
     iframe.style.cssText = `
       position: fixed;
-      top: ${this.settings.overlayPosition.y}px;
-      left: ${this.settings.overlayPosition.x}px;
-      width: ${this.settings.overlaySize.width}px;
-      height: ${this.settings.overlaySize.height}px;
+      top: ${overlayPosition.y}px;
+      left: ${overlayPosition.x}px;
+      width: ${overlaySize.width}px;
+      height: ${overlaySize.height}px;
       border: none;
       z-index: 2147483647;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
